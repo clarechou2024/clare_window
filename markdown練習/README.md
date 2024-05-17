@@ -1,6 +1,6 @@
 # Markdowm練習
 
-## 第1堂課
+## 第1堂課(斜體與粗體)
 _Writing in Markdown is not that hard!_
 
 Writing in Markdown is (_not_) that hard!
@@ -11,7 +11,7 @@ _"Of course,"_ she whispered. Then, she shouted: "All I need is **a little moxie
 
 If you're thinking to yourself, **_This is unbelievable_**, you'd probably be right.
 
-## 第2堂課
+## 第2堂課(標題)
 #Header one
 ##Header two
 ###Header three
@@ -24,7 +24,7 @@ If you're thinking to yourself, **_This is unbelievable_**, you'd probably be ri
 Here's some words about the book _One Hundred Years..._.
 
 
-## 第3堂課
+## 第3堂課(超連結)
 [「Search for it」](www.google.com )
 
 You're **[really, really](www.dailykitten.com)** going to want to see this.
@@ -39,7 +39,7 @@ Well, do I have [the website for you][another fun place]!
 [a fun place]:(www.zombo.com)
 [another fun place]:(www.stumbleupon.com)
 
-## 第4堂課
+## 第4堂課(圖片)
 ![A pretty tiger](https://upload.wikimedia.org/wikipedia/commons/5/56/Tiger.50.jpg)
 
 ![Black cat][Black]
@@ -49,7 +49,7 @@ Well, do I have [the website for you][another fun place]!
 [Black]:https://upload.wikimedia.org/wikipedia/commons/a/a3/81_INF_DIV_SSI.jpg
 [Orange]:http://icons.iconarchive.com/icons/google/noto-emoji-animals-nature/256/22221-cat-icon.png
 
-## 第五堂課
+## 第五堂課(引用區塊)
 I read this interesting quote the other day:
 
 >"Her eyes had called him and his soul had leaped at the call. To live, to err, to fall, to triumph, to recreate life out of life!"
@@ -62,7 +62,7 @@ I read this interesting quote the other day:
 
 >He left her quickly, fearing that her intimacy might turn to jibing and wishing to be out of the way before she offered her ware to another, a tourist from England or a student of Trinity. Grafton Street, along which he walked, prolonged that moment of discouraged poverty. In the roadway at the head of the street a slab was set to the memory of Wolfe Tone and he remembered having been present with his father at its laying. He remembered with bitterness that scene of tawdry tribute. There were four French delegates in a brake and one, a plump smiling young man, held, wedged on a stick, a card on which were printed the words: _VIVE L'IRLANDE_!
 
-## 第六堂課
+## 第六堂課(清單)
  * Flour
  * Cheese
  * Tomatoes
@@ -85,19 +85,25 @@ I read this interesting quote the other day:
  * Is possibly mentally unwell
 
  
-1.Cut the cheese
+1. Cut the cheese
 
-    * Make sure that the cheese is cut into little triangles.
-
-
-2.Slice the tomatoes
-
-    * Be careful when holding the knife.
+ Make sure that the cheese is cut into little triangles.
     
->For more help on tomato slicing, see Thomas Jefferson's seminal essay _Tom Ate Those_.
+2. Slice the tomatoes
 
-## 第七堂課
+  Be careful when holding the knife.  
+  For more help on tomato slicing,see Thomas Jefferson's seminal essay _Tom Ate Those_.
 
+## 第七堂課(段落)
+We pictured the meek mild creatures where  
+They dwelt in their strawy pen,  
+Nor did it occur to one of us there  
+To doubt they were kneeling then.
 
+1. Crack three eggs over a bowl.  
+ Now, you're going to want to crack the eggs in such a way that you don't make a mess.  
+ If you _do_ make a mess, use a towel to clean it up!
 
-## 第八堂課
+2. Pour a gallon of milk into the bowl.  
+ Basically, take the same guidance as above: don't be messy, but if you are, clean it up!
+
