@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../__11304_python_2024_tvdi__"
 		}
 	]
 }
