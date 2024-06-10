@@ -9,7 +9,6 @@ class UserMessagebox(tk.Toplevel):
         self.title(title)
         self.message = message
         self.status_color = status_color
-        X
         
         self.body()
         #self.buttonbox()
