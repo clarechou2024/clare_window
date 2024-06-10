@@ -38,7 +38,7 @@ class Window(ThemedTk):
         try:
             all_data:dict[any] = tools.download_json()
         except Exception as error:
-            messagebox.showwarning("出現錯誤","出現小錯誤,請稍後再試")
+            messagebox.showwarning("輸入錯誤","請輸入正確的身高(cm)和體重(kg)。")
             return
         else:
             data:list[dict] = tools.get_data(all_data)
@@ -139,7 +139,8 @@ class ShowInfo(Dialog):
 
 
 def main():
-    window = Window(theme="radiance")   #theme(主題);"arc"->白色//"radiance"->主題的一種,List of ttk Themes可以找主題套用
+    #window = Window(theme="radiance")   #theme(主題);"arc"->白色//"radiance"->主題的一種,List of ttk Themes可以找主題套用
+    window = Window()   #theme(主題);"arc"->白色//"radiance"->主題的一種,List of ttk Themes可以找主題套用
     window.mainloop()
 
 if __name__=='__main__':
