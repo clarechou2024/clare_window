@@ -25,7 +25,7 @@ class Info(BaseModel):
     rent_bikes:int = Field(alias="available_rent_bikes")
     lat:float = Field(alias="latitude")
     lng:float = Field(alias="longitude")
-    retuen_bikes:int = Field(alias="available_return_bikes")
+    return_bikes:int = Field(alias="available_return_bikes")
 
 class Youbike_Data(RootModel):
     root:list[Info]
@@ -33,5 +33,5 @@ class Youbike_Data(RootModel):
 def load_data()->list[dict]:
     all_data:dict[any] = __download_json()    
     youbike_data:Youbike_Data = Youbike_Data.model_validate(all_data)
-    data = youbike_data.model_dump()
-    return data
+    #data = youbike_data.model_dump()
+    return youbike_data.root
