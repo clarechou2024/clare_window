@@ -16,3 +16,16 @@
 ![圖三](./image/image03.png)
 
 ## [程式碼三](index03.py)
+
+
+### 圖四
+![圖四](./image/image04.png)
+
+## [程式碼四](index04.py)
+
+
+### 圖五
+![圖五](./image/image05.png)
+
+## [程式碼五](index05.py)
+
