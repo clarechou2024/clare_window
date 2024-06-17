@@ -33,7 +33,7 @@ class Window(ThemedTk):
         # define columns
         columns = ('sna', 'sarea', 'mday', 'ar', 'total', 'rent_bikes', 'retuen_bikes')
 
-        tree = ttk.Treeview(tableFrame, columns=columns, show='headings',selectmode='browse')
+        tree = ttk.Treeview(tableFrame, columns=columns, show='headings')
 
         # define headings
         tree.heading('sna', text='站點')
@@ -69,21 +69,25 @@ class Window(ThemedTk):
         scrollbar = ttk.Scrollbar(tableFrame, orient=tk.VERTICAL, command=tree.yview)
         tree.configure(yscroll=scrollbar.set)
         scrollbar.grid(row=0, column=1, sticky='ns')
-        tableFrame.pack(expand=True,fill=tk.BOTH,padx=20,pady=20)
+        tableFrame.pack(padx=20,pady=10)
         #=====================================
-        pieChartFrame = PieChartFrame(mainFrame)
-        pieChartFrame.pack(expand=True,fill='both')
-        mainFrame.pack(expand=True,fill=tk.BOTH,padx=10,pady=10)
+        self.pieChartFrame = PieChartFrame(mainFrame)
+        self.pieChartFrame.pack()
+        mainFrame.pack(padx=10,pady=5)
         
     def item_selected(self,event):
         tree = event.widget
-        #print(isinstance(tree,ttk.Treeview))   #isinstance: is 實體
-        for selected_item in tree.selection():
-            item = tree.item(selected_item)
+        records:list[list] = []       
+        for selected_item in tree.selection()[:3]:     #[:3]->代表指可以選3個，多了也不會選取
+            item = tree.item(selected_item)            
             record:list = item['values']
-            print(record)
-            
+            records.append(record)
+        self.pieChartFrame.infos = records
 
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg   
 class PieChartFrame(ttk.Frame):
     def __init__(self,master:Misc,**kwargs):
         super().__init__(master=master,**kwargs)
@@ -92,19 +96,98 @@ class PieChartFrame(ttk.Frame):
         #self.configure({'borderwidth':2,'relief':'groove'})  #寫法2
         #self.config({'borderwidth':2,'relief':'groove'})    #寫法3   
         #self['borderwidth'] = 2                             #寫法4
-        #self['relief'] = 'groove'   
-        canvas = tk.Canvas(self)
-        canvas.create_line(15,30,200,30)                 #畫線(x1,y1,x2,y2)
-        canvas.create_line(300,35,300,200,dash=(8,2))    #虛線(線長,線距)
-        canvas.create_line(55,85,155,85,105,180,55,85)   #三角形
-        canvas.pack(expand=True,fill='both')
-        self.pack(expand=True,fill='both')
+        #self['relief'] = 'groove'  
+        style = ttk.Style()
+        style.configure('abc.TFrame',background='#ffffff') 
+        self.configure(style='abc.TFrame')
+       
+    @property
+    def infos(self)->None:
+        return None
 
+    
+    @infos.setter
+    def infos(self,datas:list[list]) -> None:
+        #print('資料傳進來了')
+        #print(data)
+        for w in self.winfo_children():
+            w.destroy()
+            
+        for data in datas:
+            sitename:str = data[0]
+            area:str = data[1]
+            info_time:str = data[2]
+            address:str = data[3]
+            total:int = data[4]
+            rents:int = data[5]
+            returns:int = data[6]
+            oneFrame = ttk.Frame(self,style='abc.TFrame')
+            ttk.Label(oneFrame,text="行政區:").grid(row=0,column=0,sticky='e')
+            ttk.Label(oneFrame,text=area).grid(row=0,column=1,sticky='w')
 
+            ttk.Label(oneFrame,text="站點名稱:").grid(row=1,column=0,sticky='e')
+            ttk.Label(oneFrame,text=sitename).grid(row=1,column=1,sticky='w')
 
+            ttk.Label(oneFrame,text="時間:").grid(row=2,column=0,sticky='e')
+            ttk.Label(oneFrame,text=info_time).grid(row=2,column=1,sticky='w')
+
+            ttk.Label(oneFrame,text="地址:").grid(row=3,column=0,sticky='e')
+            ttk.Label(oneFrame,text=address).grid(row=3,column=1,sticky='w')
+
+            ttk.Label(oneFrame,text="總車輛數:").grid(row=4,column=0,sticky='e')
+            ttk.Label(oneFrame,text=str(total)).grid(row=4,column=1,sticky='w')
+
+            ttk.Label(oneFrame,text="可借:").grid(row=5,column=0,sticky='e')
+            ttk.Label(oneFrame,text=str(rents)).grid(row=5,column=1,sticky='w')
+
+            ttk.Label(oneFrame,text="可還:").grid(row=6,column=0,sticky='e')
+            ttk.Label(oneFrame,text=str(returns)).grid(row=6,column=1,sticky='w')
+
+            def func(pct, allvals):
+                absolute = int(np.round(pct/100.*np.sum(allvals)))
+                return f"{absolute:d}pcs - {pct:.1f}%"
+
+            values = [rents,returns]
+            labels = ['Rent','Return']
+            colors = ['green','red']
+            figure = plt.figure(figsize=(5,5),dpi=72)
+            axes = figure.add_subplot()
+            axes.pie(values,colors=colors,
+                    labels=labels,
+                    labeldistance=1.2,
+                    shadow=True,
+                    autopct=lambda pct: func(pct, values),
+                    textprops=dict(color="white"))
+            
+            axes.legend(title="rate:",
+                        loc="center left",
+                        bbox_to_anchor=(0,0,0,2))
+            
+            canvas = FigureCanvasTkAgg(figure,oneFrame)
+            #self.canvas_list.append(canvas)
+            canvas.draw()
+            canvas.get_tk_widget().grid(row=7,column=0,columnspan=2)
+
+            #顯示後馬上消滅canvas，可以不會佔記憶體
+            for item in canvas.get_tk_widget().find_all():
+                canvas.get_tk_widget().delete(item)
+            #顯示後馬上消滅figure，可以不會佔記憶體
+            plt.close()
+            
+
+            oneFrame.pack(side='left',expand=True,fill='both')
+
+        
+        
 
 def main():
+    def on_closing():
+        print("手動關閉視窗")
+        window.destroy()
+        window.quit()
+
     window = Window(theme='breeze')   #引數名稱的呼叫
+    window.protocol("WM_DELETE_WINDOW",on_closing)
     window.mainloop()   
 
 if __name__ == '__main__':
