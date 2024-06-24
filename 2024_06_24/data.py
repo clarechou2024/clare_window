@@ -1,10 +1,8 @@
 import requests
 from requests import Response
-from pydantic import BaseModel, RootModel, Field,field_validator,ConfigDict
-
-
-
-def __download_json():
+from pydantic import BaseModel, RootModel, Field,field_validator,ConfigDict,field_serializer
+from datetime import datetime
+def _download_json():
     url = "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json"
 
     try:
@@ -16,13 +14,13 @@ def __download_json():
         return all_data
     
 
-class Info(BaseModel):
+class _Info(BaseModel):
     sna:str
     sarea:str
-    mday:str
+    mday:datetime
     ar:str
     act:str
-    updateTime:str
+    updateTime:datetime
     total:int
     rent_bikes:int = Field(alias="available_rent_bikes")
     lat:float = Field(alias="latitude")
@@ -36,20 +34,23 @@ class Info(BaseModel):
     def flex_string(cls, value:str)->str:
         return value.split(sep="_")[-1]   #sep:切掉
 
-class Youbike_Data(RootModel):
-    root:list[Info]
+    @field_serializer("mday","updateTime")
+    def datetime_to_str(self,value:datetime)->str:
+        return value.strftime('%Y-%m-%d %H:%M:%S')
+    
+class _Youbike_Data(RootModel):
+    root:list[_Info]
 
 def load_data()->list[dict]:
-    all_data:dict[any] = __download_json()
-    youbike_data:Youbike_Data = Youbike_Data.model_validate(all_data)
+    all_data:dict[any] = _download_json()
+    youbike_data:_Youbike_Data = _Youbike_Data.model_validate(all_data)
     data = youbike_data.model_dump()
     return data
 
 
-
 class FilterData(object):
     @staticmethod
-    def get_selected_coordinate(sna:str,data:list[dict])->dict:
+    def get_selected_coordinate(sna:str,data:list[dict])->_Info:
         #def abc(item:dict)->bool:     #用lambda可簡短程式
             #if item['sna'] == sna:
                 #return True
@@ -57,7 +58,7 @@ class FilterData(object):
                 #return False
         right_list:list[dict] = list(filter(lambda item:True if item['sna']==sna else False,data))
         data:dict = right_list[0]
-        return Info.model_validate(data)
+        return _Info.model_validate(data)
 
         ''' #可以和<  model_config = ConfigDict(populate_by_name=True)  >二選一
 
@@ -74,3 +75,5 @@ class FilterData(object):
                     longitude=data['lng']
                     )
         '''
+
+_all_ =['load_data','FilterData']
