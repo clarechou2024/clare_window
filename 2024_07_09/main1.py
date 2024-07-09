@@ -16,6 +16,5 @@ def profile(username):
 with app.test_request_context():
     print(url_for('index'))
     print(url_for('login'))
-    print(url_for('login', name='Ann',password='12345'))
+    print(url_for('login', name='Ann', password='1234'))
     print(url_for('profile', username='John Doe'))
-   
