@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask,render_template
 
 app = Flask(__name__)
 
 @app.route("/")
-def hello_word():
-    return "<h1>我的主題</h1>\n<h2>職能發展學院</h2>"
+def index():
+    return render_template('index.html.jinja')
 
 @app.route('/hello')
 def hello():
