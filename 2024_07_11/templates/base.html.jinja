@@ -17,8 +17,8 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{url_for('index')}}">職能發展學院</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <img src="{{url_for('static',filename='images/button.png')}}" alt="Toggle navigation"
                         style="width: 30px; height: 30px;">
                 </button>
@@ -30,15 +30,30 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">台北市Youbike</a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">跟我聯絡</a>
                         </li>
                     </ul>
-    
+
                 </div>
             </div>
         </nav>
+        <main class="container text-center">
+             
+                <div class="row">
+                    <div class="col-4" style="background-color: rgb(89, 147, 149);">
+                        {% block left_content%}
+                        {% endblock %}
+                    </div>
+                    
+                    <div class="col-8" style="background-color: rgb(120, 200, 203);">
+                        {% block right_content%}
+                        {% endblock %}
+                    </div>
+                </div>
+            
+        </main>
     </div>
 </body>
 
