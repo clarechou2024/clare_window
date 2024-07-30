@@ -5,8 +5,11 @@ from dashboard.board1 import app1
 from dashboard.board2 import app2
 import data
 import dashboard
+from auth import auth_blueprint
 
 app = Flask(__name__)
+app.register_blueprint(auth_blueprint)
+
 application=DispatcherMiddleware(app,{
     "/dashboard/app1":app1.server,
     "/dashboard/app2":app2.server
