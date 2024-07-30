@@ -48,7 +48,8 @@ app1.layout = html.Div([
 ])
 
 #Slide的滑動會與圖表做互動
-@callback(
+#如果要連結2個dash,必須要加上app1
+@app1.callback(
     Output('indicator-graphic','figure'),
     Input('xaxis-column','value'),
     Input('yaxis-column','value'),

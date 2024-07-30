@@ -17,7 +17,8 @@ app2.layout = html.Div([
     dash_table.DataTable(id='sites_table')
 ])
 
-@callback(
+#如果要連結2個dash,必須要加上app2
+@app2.callback(
     Output('sites_table','data'),
     Input('areas','value')
 )
