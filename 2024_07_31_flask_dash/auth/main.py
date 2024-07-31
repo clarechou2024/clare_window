@@ -32,7 +32,9 @@ def index():
                 return redirect('/')
                 # print(f"您好:{username}")
             else:
-                print(f'密碼錯誤')
+                #print(f'密碼錯誤')
+                form.email.errors.append("帳號或密碼錯誤")
+                form.email.data = ""
     else:
         print("這是第一次進入")
 
