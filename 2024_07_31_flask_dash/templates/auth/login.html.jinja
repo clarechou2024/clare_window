@@ -1,17 +1,17 @@
-{% extends "base.html.jinja" %}
+{% extends "base.html.jinja"%}
 {% block title %}
 登入頁面
-{% endblock %}
+{% endblock%}
 
 {% block main%}
 <h1>登入</h1>
-<form method="post">
-{{form.csrf_token}}
+<form method="POST">
+{{ form.csrf_token }}
     <div class="mb-3">
-        {{form.email.label(class="form-label")}} {{form.email(class="form-control",size=30,minlength=4,maxlength=30)}}
+        {{ form.email.label(class="form-label") }} {{form.email(class="form-control",size=30,minlength=4,maxlength=30)}}
     </div>
     <div class="mb-3">
-        {{form.password.label(class="form-label")}}{{form.password(class="form-control")}}
+        {{ form.password.label(class='form-label')}} {{ form.password(class='form-control')}}
     </div>
 <input type="submit" value="確定" class="btn btn-primary">
 <a href="/auth/register" class="ps-3">註冊帳號</a>
@@ -19,11 +19,13 @@
 </form>
     {% if form.email.errors %}
         <ul>
-        {% for error in form.email.errors%}
+        {% for error in form.email.errors %}
             <li>
-                <div class="alert alert-warngin" role="alert"></div>
+                <div class="'alert alert-warngin" role="alert">
+                    {{error}}
+                </div>
             </li>
-        {% endfor%}
+        {% endfor %}
         </ul>
-    {% endif%}
-{%endblock%}
+    {% endif %}
+{% endblock%}
