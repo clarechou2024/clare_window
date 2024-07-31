@@ -1,4 +1,4 @@
-## 網頁製作
+## 網頁製作  (增加:Login)
 
 ### 課程參考網址如下:
 
@@ -13,14 +13,6 @@
 [Flask參考網址](https://flask.palletsprojects.com/en/3.0.x/)
 
 ------
-
-#### 執行指令
-![alt text](image.png)
-
-------
-
-## 完成網頁網址
-[網址連結](https://clare-window.onrender.com/)
 
 
 ## pgAdmin連線 (帳號/密碼/網址)
