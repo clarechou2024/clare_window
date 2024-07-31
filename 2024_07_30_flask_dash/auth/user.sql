@@ -8,7 +8,7 @@ CREATE TABLE 使用者(
 	出生年月日 VARCHAR(20),
 	自我介紹 VARCHAR(200),
 	密碼 VARCHAR(100),
-	連線密碼 VARCHAR(20)
+	連線密碼 VARCHAR(100)
 );
 
 INSERT INTO 使用者(姓名,電子郵件,密碼) 

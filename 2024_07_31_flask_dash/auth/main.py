@@ -72,9 +72,7 @@ def register():
             else:
                 return redirect(f'/auth/login/{uEmail}')
         
-
-
-
+        
 
     else:
         print("第一次進入")
