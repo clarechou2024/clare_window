@@ -5,9 +5,10 @@ from wtforms.validators import DataRequired,Length
 from .datasource import validateUser
 
 auth_blueprint = Blueprint('auth',__name__)
-# #設加密字串
-# WTF_CSRF_SECRET_KEY = 'a random string'
 
+@auth_blueprint.route('/auth/register')
+def register():
+    return render_template('/auth/register.html.jinja')
 
 class LoginForm(FlaskForm):
     email = EmailField('郵件信箱',validators=[DataRequired()])
@@ -16,7 +17,7 @@ class LoginForm(FlaskForm):
 
 @auth_blueprint.route("/auth/",methods=['GET','POST'])
 @auth_blueprint.route("/auth/login",methods=['GET','POST'])
-def index():
+def index(email:str | None = None):
     form = LoginForm()
     if request.method == "POST":
         if form.validate_on_submit():
@@ -27,16 +28,20 @@ def index():
             print(f'email:{email}')
             print(f'password:{password}')
             is_ok,username = validateUser(email,password)
+            print (is_ok)
             if is_ok:
+                # print(f"您好:{username}")
                 session['username'] = username    #寫一個cookies在裡面
                 return redirect('/')
-                # print(f"您好:{username}")
             else:
                 #print(f'密碼錯誤')
                 form.email.errors.append("帳號或密碼錯誤")
                 form.email.data = ""
+
     else:
         print("這是第一次進入")
+        # if email is not None:
+        #     form.email.data = email
 
     return render_template('/auth/login.html.jinja',form=form)
 
